@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resumen HTML</title>
+<style>
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #EAEAEA;
+    background: radial-gradient(at 20% 30%, rgba(72,61,139,0.6), transparent 50%),
+                radial-gradient(at 80% 20%, rgba(25,25,112,0.6), transparent 50%),
+                radial-gradient(at 40% 80%, rgba(123,104,238,0.6), transparent 50%),
+                radial-gradient(at 70% 70%, rgba(106,90,205,0.6), transparent 50%),
+                #1E1E2F;
+    background-attachment: fixed;
+    animation: moveBg 30s ease infinite;
+  }
+
+  @keyframes moveBg {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .container {
+    max-width: 1200px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  details.card {
+    background: #2B2B3C;
+    border-radius: 16px;
+    padding: 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    margin-bottom: 20px;
+  }
+
+  summary {
+    padding: 25px 30px;
+    font-weight: 700;
+    font-size: 28px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #2B2B3C;
+    border-radius: 16px;
+    cursor: pointer;
+    background: linear-gradient(90deg, #4FC3F7, #F48FB1, #81D4FA, #F48FB1);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientMove 12s ease infinite;
+  }
+
+  details[open] summary {
+    border-bottom: 1px solid #555;
+    border-radius: 16px 16px 0 0;
+  }
+
+  .card-content {
+    padding: 25px 30px;
+  }
+
+  h2 {
+    font-size: 22px;
+    color: #CCCCCC;
+  }
+
+  @keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #CCCCCC;
+  }
+
+  .icon {
+    width: 28px;
+    height: 28px;
+    fill: #4FC3F7;
+  }
+
+  .code-container {
+    position: relative;
+    background-color: #1F1F2B;
+    border-radius: 12px;
+    padding: 18px;
+    margin-top: 15px;
+    border: 1px solid #3C3C3C;
+  }
+
+  .code-wrapper {
+    overflow-x: auto;
+    width: 100%;
+  }
+
+  pre {
+    margin: 0;
+    font-family: 'Fira Code', monospace;
+    font-size: 14px;
+    color: #D4D4D4;
+    min-width: fit-content;
+  }
+
+  .tag { color: #4FC3F7; }
+  .attr { color: #9CDCFE; }
+  .value { color: #CE9178; }
+  .comment { color: #6A9955; }
+
+  .copy-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: linear-gradient(90deg, #4FC3F7, #F48FB1, #81D4FA);
+    background-size: 300% 300%;
+    border: none;
+    color: #121212;
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: bold;
+    transition: transform 0.2s ease, background 0.3s ease;
+    animation: gradientMoveBtn 8s ease infinite;
+    z-index: 10;
+  }
+
+  .copy-btn:hover {
+    transform: scale(1.05);
+  }
+
+  .copy-btn.copied {
+    background: linear-gradient(90deg, #F48FB1, #4FC3F7, #81D4FA);
+    background-size: 300% 300%;
+    color: white;
+    transform: scale(1.1);
+    animation: gradientMoveBtn 8s ease infinite;
+  }
+
+  @keyframes gradientMoveBtn {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .preview-container {
+    margin-top: 20px;
+    border-radius: 12px;
+    border: 1px solid #3C3C3C;
+    overflow: hidden;
+    background: #121212;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .tab-bar {
+    display: flex;
+    background: #1F1F2B;
+  }
+
+  .tab {
+    padding: 6px 18px;
+    font-size: 14px;
+    color: #AAAAAA;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    margin-right: 2px;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .tab.active {
+    background: #2B2B3C;
+    color: #EAEAEA;
+    font-weight: bold;
+  }
+
+  .tab-circle {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #FF5F56;
+  }
+
+  .tab-circle:nth-child(2) { background: #FFBD2E; }
+  .tab-circle:nth-child(3) { background: #27C93F; }
+
+  .tab-icon {
+    width: 16px;
+    height: 16px;
+    fill: #EAEAEA;
+  }
+
+  .preview-body {
+    padding: 15px;
+    color: #AAAAAA;
+    font-size: 14px;
+    font-family: monospace;
+    min-height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #1B1B26;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .info-text {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #CCCCCC;
+    text-align: center;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-top: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  }
+
+  th {
+    background: #666666;
+    color: #EAEAEA;
+    padding: 12px 15px;
+    text-align: left;
+    border-right: 1px solid #AAAAAA;
+  }
+
+  td:first-child {
+    border-right: 1px solid #AAAAAA;
+  }
+
+  td {
+    background: #1C1C1C;
+    color: #CCCCCC;
+    padding: 12px 15px;
+  }
+
+  tr:not(:last-child) td {
+    border-bottom: 1px solid #3C3C3C;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <details class="card">
+    <summary>
+      <svg class="icon" viewBox="0 0 24 24">
+        <path d="M6 2h12a2 2 0 0 1 2 2v16l-8-4-8 4V4a2 2 0 0 1 2-2z"/>
+      </svg>
+      Resumen Completo de HTML
+    </summary>
+    <div class="card-content">
+      <p>HTML (HyperText Markup Language) es el lenguaje que define la estructura de una página web.<br>
+      <strong>No es un lenguaje de programación.</strong></p>
+    </div>
+  </details>
+
+  <details class="card">
+    <summary>
+      <svg class="icon" viewBox="0 0 24 24">
+        <path d="M4 4h16v16H4z" />
+      </svg>
+      HTML5 esencial para proyectos reales (2025)
+    </summary>
+    <div class="card-content">
+      <p>1) Estructura mínima:</p>
+      <div class="code-container">
+        <button class="copy-btn" onclick="copyCode('code1', this)">Copiar</button>
+        <div class="code-wrapper">
+          <pre id="code1">
+<span class="tag">&lt;!DOCTYPE html&gt;</span> <span class="comment">&lt;!-- Indica HTML5 --&gt;</span>
+<span class="tag">&lt;html</span> <span class="attr">lang</span>=<span class="value">"es"</span><span class="tag">&gt;</span> <span class="comment">&lt;!-- Idioma obligatorio --&gt;</span>
+<span class="tag">&lt;head&gt;</span> <span class="comment">&lt;!-- Información de la página (no se ve en pantalla) --&gt;</span>
+  <span class="tag">&lt;meta</span> <span class="attr">charset</span>=<span class="value">"UTF-8"</span><span class="tag">&gt;</span> <span class="comment">&lt;!-- Codificación universal --&gt;</span>
+  <span class="tag">&lt;meta</span> <span class="attr">name</span>=<span class="value">"viewport"</span> <span class="attr">content</span>=<span class="value">"width=device-width, initial-scale=1.0"</span><span class="tag">&gt;</span> <span class="comment">&lt;!-- Responsive --&gt;</span>
+  <span class="tag">&lt;title&gt;</span>Mi Proyecto<span class="tag">&lt;/title&gt;</span> <span class="comment">&lt;!-- Título que aparece en la pestaña del navegador --&gt;</span>
+  <span class="tag">&lt;link</span> <span class="attr">rel</span>=<span class="value">"icon"</span> <span class="attr">href</span>=<span class="value">"/favicon.ico"</span> <span class="attr">type</span>=<span class="value">"image/x-icon"</span><span class="tag">&gt;</span>
+  <span class="comment">&lt;!-- Estilos --&gt;</span>
+  <span class="tag">&lt;link</span> <span class="attr">rel</span>=<span class="value">"stylesheet"</span> <span class="attr">href</span>=<span class="value">"estilos.css"</span><span class="tag">&gt;</span>  <span class="comment">&lt;!-- Para poner archivos de estilos --&gt;</span>
+<span class="tag">&lt;/head&gt;</span>
+<span class="tag">&lt;body&gt;</span> <span class="comment">&lt;!-- Todo el contenido visible: textos, imágenes, botones --&gt;</span>
+<span class="tag">&lt;/body&gt;</span>
+<span class="tag">&lt;/html&gt;</span>
+          </pre>
+        </div>
+      </div>
+      <div class="preview-container">
+        <div class="tab-bar">
+          <div class="tab active">
+            <div class="tab-circle"></div>
+            <div class="tab-circle"></div>
+            <div class="tab-circle"></div>
+            <svg class="tab-icon" viewBox="0 0 24 24">
+              <line x1="5" y1="5" x2="19" y2="19" stroke="#EAEAEA" stroke-width="2"/>
+              <line x1="19" y1="5" x2="5" y2="19" stroke="#EAEAEA" stroke-width="2"/>
+            </svg>
+            Mi Proyecto
+          </div>
+          <div class="tab">
+            <div class="tab-circle"></div>
+            <div class="tab-circle"></div>
+            <div class="tab-circle"></div>
+            Nueva Pestaña
+          </div>
+        </div>
+        <div class="preview-body">
+          Contenido visible en la pestaña "Mi Proyecto"
+        </div>
+      </div>
+      <p class="info-text">En este caso el contenido visible es: <strong>el favicon y el title</strong></p>
+      <table>
+        <thead>
+          <tr>
+            <th>Elemento</th>
+            <th>Descripción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>&lt;!DOCTYPE html&gt;</td>
+            <td>Indica al navegador que el documento usa HTML5</td>
+          </tr>
+          <tr>
+            <td>&lt;html lang="es"&gt;</td>
+            <td>Define el idioma de la página</td>
+          </tr>
+          <tr>
+            <td>&lt;head&gt;</td>
+            <td>Contiene metadatos y enlaces, no se ve directamente en pantalla</td>
+          </tr>
+          <tr>
+            <td>&lt;meta charset="UTF-8"&gt;</td>
+            <td>Codificación universal para que los caracteres se muestren correctamente</td>
+          </tr>
+          <tr>
+            <td>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</td>
+            <td>Hace que la página sea responsive (adaptable a dispositivos móviles)</td>
+          </tr>
+          <tr>
+            <td>&lt;title&gt;</td>
+            <td>Título que aparece en la pestaña del navegador</td>
+          </tr>
+          <tr>
+            <td>&lt;link rel="icon" href="/favicon.ico" type="image/x-icon"&gt;</td>
+            <td>Favicon visible en la pestaña</td>
+          </tr>
+          <tr>
+            <td>&lt;body&gt;</td>
+            <td>Contenido visible de la página: texto, imágenes, botones, etc.</td>
+          </tr>
+          <tr>
+            <td>&lt;link rel="stylesheet" href="estilos.css"&gt;</td>
+            <td>Para cargar estilos</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </details>
+  <details class="card">
+    <summary>
+      <svg class="icon" viewBox="0 0 24 24">
+        <path d="M4 4h16v16H4z" />
+      </svg>
+      Continuación: HTML moderno y semántico
+    </summary>
+    <div class="card-content">
+      <p>HTML5 introdujo etiquetas que hacen el código más legible y mejor para SEO y accesibilidad.</p>
+      <h2>Estructura semántica</h2>
+      <p>En vez de usar &lt;div&gt; para todo, ahora existen:</p>
+      <div class="code-container">
+        <button class="copy-btn" onclick="copyCode('code2', this)">Copiar</button>
+        <div class="code-wrapper">
+          <pre id="code2">
+  <span class="tag">&lt;header&gt;</span>   <span class="comment">&lt;!-- Encabezado de la página --&gt;</span>
+  <span class="tag">&lt;nav&gt;</span>      <span class="comment">&lt;!-- Barra de navegación --&gt;</span>
+  <span class="tag">&lt;main&gt;</span>     <span class="comment">&lt;!-- Contenido principal --&gt;</span>
+  <span class="tag">&lt;section&gt;</span>  <span class="comment">&lt;!-- Sección temática --&gt;</span>
+  <span class="tag">&lt;article&gt;</span>  <span class="comment">&lt;!-- Artículo independiente --&gt;</span>
+  <span class="tag">&lt;aside&gt;</span>    <span class="comment">&lt;!-- Contenido lateral --&gt;</span>
+  <span class="tag">&lt;footer&gt;</span>   <span class="comment">&lt;!-- Pie de página --&gt;</span>
+          </pre>
+        </div>
+      </div>
+      <p class="info-text">Buenas prácticas básicas: <strong>Usar etiquetas semánticas cuando se pueda</strong></p>
+      <hr style="border:none; border-top:2px solid #555; margin:30px 0; border-radius:2px;">
+      <h2>Ejemplo 1: Página básica con encabezado, nav y main</h2>
+      <div class="code-container">
+        <button class="copy-btn" onclick="copyCode('code3', this)">Copiar</button>
+        <div class="code-wrapper">
+          <pre id="code3">
+        <span class="tag">&lt;!DOCTYPE html&gt;</span>
+        <span class="tag">&lt;html</span> <span class="attr">lang</span>=<span class="value">"es"</span><span class="tag">&gt;</span>
+          <span class="tag">&lt;head&gt;</span>
+            <span class="tag">&lt;meta</span> <span class="attr">charset</span>=<span class="value">"UTF-8"</span><span class="tag">&gt;</span>
+            <span class="tag">&lt;title&gt;</span>Ejemplo 1 - Semántico<span class="tag">&lt;/title&gt;</span>
+          <span class="tag">&lt;/head&gt;</span>
+          <span class="tag">&lt;body&gt;</span>
+            <span class="tag" style="color: #008080">&lt;header&gt;</span>
+              <span class="tag">&lt;h1&gt;</span>Mi Sitio Web<span class="tag">&lt;/h1&gt;</span>
+            <span class="tag" style="color: #008080">&lt;/header&gt;</span>
+            <span class="tag" style="color: #32CD32">&lt;nav&gt;</span>
+              <span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="value">"#"</span><span class="tag">&gt;</span>Inicio<span class="tag">&lt;/a&gt;</span> | 
+              <span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="value">"#"</span><span class="tag">&gt;</span>Servicios<span class="tag">&lt;/a&gt;</span> | 
+              <span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="value">"#"</span><span class="tag">&gt;</span>Contacto<span class="tag">&lt;/a&gt;</span>
+            <span class="tag" style="color: #32CD32">&lt;/nav&gt;</span>
+            <span class="tag" style="color: #FF8C00">&lt;main&gt;</span>
+              <span class="tag" style="color: #00B496">&lt;section&gt;</span>
+                <span class="tag" style="color: #9d00ff">&lt;article&gt;</span>
+                  <span class="tag">&lt;h3&gt;</span>Noticia 1<span class="tag">&lt;/h3&gt;</span>
+                  <span class="tag">&lt;p&gt;</span>Contenido de la noticia...<span class="tag">&lt;/p&gt;</span>
+                <span class="tag" style="color: #9d00ff">&lt;/article&gt;</span>
+                <span class="tag" style="color: #9d00ff">&lt;article&gt;</span>
+                  <span class="tag">&lt;h3&gt;</span>Noticia 2<span class="tag">&lt;/h3&gt;</span>
+                  <span class="tag">&lt;p&gt;</span>Contenido de la noticia...<span class="tag">&lt;/p&gt;</span>
+                <span class="tag" style="color: #9d00ff">&lt;/article&gt;</span>
+              <span class="tag" style="color: #00B496">&lt;/section&gt;</span>
+              <span class="tag" style="color: #FFD700">&lt;aside&gt;</span>
+                <span class="tag">&lt;h4&gt;</span>Enlaces útiles<span class="tag">&lt;/h4&gt;</span>
+                <span class="tag">&lt;ul&gt;</span>
+                  <span class="tag">&lt;li&gt;</span><span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="value">"#"</span><span class="tag">&gt;</span>Enlace Noticia2<span class="tag">&lt;/a&gt;</span><span class="tag">&lt;/li&gt;</span>
+                  <span class="tag">&lt;li&gt;</span><span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="value">"#"</span><span class="tag">&gt;</span>Enlace Noticia3<span class="tag">&lt;/a&gt;</span><span class="tag">&lt;/li&gt;</span>
+                <span class="tag">&lt;/ul&gt;</span>
+              <span class="tag" style="color: #FFD700">&lt;/aside&gt;</span>
+            <span class="tag" style="color: #FF8C00">&lt;/main&gt;</span>
+            <span class="tag" style="color: #DC143C">&lt;footer&gt;</span>
+              <span class="tag">&lt;p&gt;</span>&copy; 2025 Mi Sitio Web<span class="tag">&lt;/p&gt;</span>
+            <span class="tag" style="color: #DC143C">&lt;/footer&gt;</span>
+          <span class="tag">&lt;/body&gt;</span>
+        <span class="tag">&lt;/html&gt;</span>
+          </pre>
+        </div>
+      </div>
+      <div class="preview-container">
+        <div class="tab-bar">
+          <div class="tab active">
+            <div class="tab-circle"></div>
+            <div class="tab-circle"></div>
+            <div class="tab-circle"></div>
+            Ejemplo 1 - Semántico
+          </div>
+        </div>
+        <div class="preview-body" style="display:flex; flex-direction:column; gap:12px; width:100%; min-height:350px; box-sizing:border-box;">
+          <div style="display:flex; gap:12px; width:100%; flex-wrap: wrap;">
+            <div style="flex:1 1 300px; border:1px solid #888; border-radius:6px; padding:10px; background:#008080; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; box-sizing:border-box; color:white;">
+              &lt;header&gt;
+              <div style="border:1px dashed #aaa; border-radius:6px; padding:6px; background:rgba(0,128,128,0.3); width:100%; box-sizing:border-box; color:white;">
+                &lt;h1&gt;Mi Sitio Web&lt;/h1&gt;
+              </div>
+            </div>
+            <div style="flex:1 1 300px; border:1px solid #888; border-radius:6px; padding:10px; background:rgba(50,205,50,0.5); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; box-sizing:border-box; color:white;">
+              &lt;nav&gt;
+              <div style="display:flex; gap:6px; flex-wrap:wrap; justify-content:center; color:white;">
+                <div style="border:1px dashed #aaa; border-radius:6px; padding:6px; background:rgba(50,205,50,0.3);">&lt;a href="#"&gt;Inicio&lt;/a&gt;</div>
+                <div style="border:1px dashed #aaa; border-radius:6px; padding:6px; background:rgba(50,205,50,0.3);">&lt;a href="#"&gt;Servicios&lt;/a&gt;</div>
+                <div style="border:1px dashed #aaa; border-radius:6px; padding:6px; background:rgba(50,205,50,0.3);">&lt;a href="#"&gt;Contacto&lt;/a&gt;</div>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex; gap:12px; width:100%; flex:1; flex-wrap: wrap;">
+            <div style="flex:3 1 500px; border:1px solid #888; border-radius:6px; padding:10px; background:rgba(255,140,0,0.5); display:flex; flex-direction:column; gap:8px; box-sizing:border-box; color:white;">
+              &lt;main&gt;
+              <div style="border:1px dashed #aaa; border-radius:6px; padding:8px; display:flex; flex-direction:column; gap:8px; background:#00B496; color:white;">
+                &lt;section&gt;
+                <div style="border:1px solid #666; border-radius:6px; padding:6px; background:#9d00ff; display:flex; flex-direction:column; gap:4px; color:white;">
+                  &lt;article&gt; 1
+                  <div style="border:1px dashed #888; border-radius:6px; padding:4px; background:rgba(157,0,255,0.3); display:flex; flex-direction:column; gap:4px; color:white;">
+                    <div>&lt;h3&gt;Noticia 1&lt;/h3&gt;</div>
+                    <div>&lt;p&gt;Contenido de la noticia...&lt;/p&gt;</div>
+                  </div>
+                </div>
+                <div style="border:1px solid #666; border-radius:6px; padding:6px; background:#9d00ff; display:flex; flex-direction:column; gap:4px; color:white;">
+                  &lt;article&gt; 2
+                  <div style="border:1px dashed #888; border-radius:6px; padding:4px; background:rgba(157,0,255,0.3); display:flex; flex-direction:column; gap:4px; color:white;">
+                    <div>&lt;h3&gt;Noticia 2&lt;/h3&gt;</div>
+                    <div>&lt;p&gt;Contenido de la noticia...&lt;/p&gt;</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="flex:1 1 200px; border:1px solid #888; border-radius:6px; padding:10px; background:rgba(255,215,0,0.5); display:flex; flex-direction:column; align-items:center; justify-content:center; box-sizing:border-box; color:white;">
+              &lt;aside&gt;
+              <div style="border:1px dashed #aaa; border-radius:6px; padding:6px; background:rgba(255,215,0,0.3); width:100%; box-sizing:border-box; color:white;">&lt;ul&gt; con enlaces</div>
+            </div>
+          </div>
+          <div style="width:100%;">
+            <div style="border:1px solid #888; border-radius:6px; padding:10px; background:rgba(220,20,60,0.5); min-height:50px; display:flex; align-items:center; justify-content:center; box-sizing:border-box; color:white;">
+              &lt;footer&gt;
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr style="border:none; border-top:2px solid #555; margin:30px 0; border-radius:2px;">
+      <h2>Ejemplo 2: Blog simple</h2>
+      <div class="code-container">
+        <button class="copy-btn" onclick="copyCode('code4', this)">Copiar</button>
+        <div class="code-wrapper">
+          <pre id="code4">
+        <span class="tag">&lt;!DOCTYPE html&gt;</span>
+        <span class="tag">&lt;html</span> <span class="attr">lang</span>=<span class="value">"es"</span><span class="tag">&gt;</span>
+          <span class="tag">&lt;head&gt;</span>
+            <span class="tag">&lt;meta</span> <span class="attr">charset</span>=<span class="value">"UTF-8"</span><span class="tag">&gt;</span>
+            <span class="tag">&lt;title&gt;</span>Ejemplo 2 - Blog simple<span class="tag">&lt;/title&gt;</span>
+          <span class="tag">&lt;/head&gt;</span>
+          <span class="tag">&lt;body&gt;</span>
+            <span class="tag" style="color: #008080">&lt;header&gt;</span>
+              <span class="tag">&lt;h1&gt;</span>Blog de Viajes<span class="tag">&lt;/h1&gt;</span>
+            <span class="tag" style="color: #008080">&lt;/header&gt;</span>
+            <span class="tag" style="color: #32CD32">&lt;nav&gt;</span>
+              <span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="value">"#"</span><span class="tag">&gt;</span>Inicio<span class="tag">&lt;/a&gt;</span> | 
+              <span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="value">"#"</span><span class="tag">&gt;</span>Destinos<span class="tag">&lt;/a&gt;</span> | 
+              <span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="value">"#"</span><span class="tag">&gt;</span>Contacto<span class="tag">&lt;/a&gt;</span>
+            <span class="tag" style="color: #32CD32">&lt;/nav&gt;</span>
+            <span class="tag" style="color: #FF8C00">&lt;main&gt;</span>
+              <span class="tag" style="color: #9d00ff">&lt;article&gt;</span>
+                <span class="tag">&lt;h2&gt;</span>Mi viaje a Japón<span class="tag">&lt;/h2&gt;</span>
+                <span class="tag">&lt;p&gt;</span>Fue una experiencia increíble...<span class="tag">&lt;/p&gt;</span>
+              <span class="tag" style="color: #9d00ff">&lt;/article&gt;</span>
+              <span class="tag" style="color: #9d00ff">&lt;article&gt;</span>
+                <span class="tag">&lt;h2&gt;</span>Explorando Perú<span class="tag">&lt;/h2&gt;</span>
+                <span class="tag">&lt;p&gt;</span>Machu Picchu es impresionante...<span class="tag">&lt;/p&gt;</span>
+              <span class="tag" style="color: #9d00ff">&lt;/article&gt;</span>
+            <span class="tag" style="color: #FF8C00">&lt;/main&gt;</span>
+            <span class="tag" style="color: #FFD700">&lt;aside&gt;</span>
+              <span class="tag">&lt;h3&gt;</span>Redes Sociales<span class="tag">&lt;/h3&gt;</span>
+              <span class="tag">&lt;ul&gt;</span>
+                <span class="tag">&lt;li&gt;</span>Twitter<span class="tag">&lt;/li&gt;</span>
+                <span class="tag">&lt;li&gt;</span>Instagram<span class="tag">&lt;/li&gt;</span>
+              <span class="tag">&lt;/ul&gt;</span>
+            <span class="tag" style="color: #FFD700">&lt;/aside&gt;</span>
+            <span class="tag" style="color: #DC143C">&lt;/footer&gt;</span>
+              <span class="tag">&lt;p&gt;</span>© 2025 Blog de Viajes<span class="tag">&lt;/p&gt;</span>
+            <span class="tag" style="color: #DC143C">&lt;/footer&gt;</span>
+          <span class="tag">&lt;/body&gt;</span>
+        <span class="tag">&lt;/html&gt;</span>
+          </pre>
+        </div>
+      </div>
+      <div class="preview-container">
+        <div class="tab-bar">
+          <div class="tab active">
+            <div class="tab-circle"></div>
+            <div class="tab-circle"></div>
+            <div class="tab-circle"></div>
+            Ejemplo 2 - Blog simple
+          </div>
+        </div>
+        <div class="preview-body" style="display:flex; flex-direction:column; gap:12px; width:100%; min-height:350px; box-sizing:border-box;">
+          <div style="display:flex; gap:12px; width:100%; flex-wrap: wrap;">
+            <div style="flex:1 1 300px; border:1px solid #888; border-radius:6px; padding:10px; background:#008080; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; box-sizing:border-box; color:white;">
+              &lt;header&gt;
+              <div style="border:1px dashed #aaa; border-radius:6px; padding:6px; background:rgba(0,128,128,0.3); width:100%; box-sizing:border-box; color:white;">
+                &lt;h1&gt;Blog de Viajes&lt;/h1&gt;
+              </div>
+            </div>
+            <div style="flex:1 1 300px; border:1px solid #888; border-radius:6px; padding:10px; background:rgba(50,205,50,0.5); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; box-sizing:border-box; color:white;">
+              &lt;nav&gt;
+              <div style="display:flex; gap:6px; flex-wrap:wrap; justify-content:center; color:white;">
+                <div style="border:1px dashed #aaa; border-radius:6px; padding:6px; background:rgba(50,205,50,0.3);">&lt;a href="#"&gt;Inicio&lt;/a&gt;</div>
+                <div style="border:1px dashed #aaa; border-radius:6px; padding:6px; background:rgba(50,205,50,0.3);">&lt;a href="#"&gt;Destinos&lt;/a&gt;</div>
+                <div style="border:1px dashed #aaa; border-radius:6px; padding:6px; background:rgba(50,205,50,0.3);">&lt;a href="#"&gt;Contacto&lt;/a&gt;</div>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex; gap:12px; width:100%; flex:1; flex-wrap: wrap;">
+            <div style="flex:3 1 500px; border:1px solid #888; border-radius:6px; padding:10px; background:rgba(255,140,0,0.5); display:flex; flex-direction:column; gap:8px; box-sizing:border-box; color:white;">
+              &lt;main&gt;
+              <div style="border:1px dashed #aaa; border-radius:6px; padding:8px; display:flex; flex-direction:column; gap:8px; background:#00B496; color:white;">
+                &lt;section&gt;
+                <div style="border:1px solid #666; border-radius:6px; padding:6px; background:#9d00ff; display:flex; flex-direction:column; gap:4px; color:white;">
+                  &lt;article&gt; 1
+                  <div style="border:1px dashed #888; border-radius:6px; padding:4px; background:rgba(157,0,255,0.3); display:flex; flex-direction:column; gap:4px; color:white;">
+                    <div>&lt;h2&gt;Mi viaje a Japón&lt;/h2&gt;</div>
+                    <div>&lt;p&gt;Fue una experiencia increíble...&lt;/p&gt;</div>
+                  </div>
+                </div>
+                <div style="border:1px solid #666; border-radius:6px; padding:6px; background:#9d00ff; display:flex; flex-direction:column; gap:4px; color:white;">
+                  &lt;article&gt; 2
+                  <div style="border:1px dashed #888; border-radius:6px; padding:4px; background:rgba(157,0,255,0.3); display:flex; flex-direction:column; gap:4px; color:white;">
+                    <div>&lt;h2&gt;Explorando Perú&lt;/h2&gt;</div>
+                    <div>&lt;p&gt;Machu Picchu es impresionante...&lt;/p&gt;</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="flex:1 1 200px; border:1px solid #888; border-radius:6px; padding:10px; background:rgba(255,215,0,0.5); display:flex; flex-direction:column; align-items:center; justify-content:center; box-sizing:border-box; color:white;">
+              &lt;aside&gt;
+              <div style="border:1px dashed #aaa; border-radius:6px; padding:6px; background:rgba(255,215,0,0.3); width:100%; box-sizing:border-box; color:white;">
+                &lt;h3&gt;Redes Sociales&lt;/h3&gt;
+                <ul>
+                  <li>Twitter</li>
+                  <li>Instagram</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div style="width:100%;">
+            <div style="border:1px solid #888; border-radius:6px; padding:10px; background:rgba(220,20,60,0.5); min-height:50px; display:flex; align-items:center; justify-content:center; box-sizing:border-box; color:white;">
+              &lt;footer&gt; © 2025 Blog de Viajes
+            </div>
+          </div>
+        </div>
+      </div>
+      <p style="margin-top:20px; font-weight:bold; color:#FFD700; text-align:center;">
+        Nota: <strong>Aside dentro del &lt;main&gt;</strong> → contenido relacionado con la sección principal. 
+        <strong>Aside fuera del &lt;main&gt;</strong> → contenido no relacionado, como información general o complementaria de la página,
+        es recomendable dejarlo fuera del main.
+      </p>
+      <p style="margin-top:10px; font-weight:bold; color:#FFD700; text-align:center;">
+        Recuerda validar tu HTML en <a href="https://validator.w3.org/" target="_blank" style="color:#4FC3F7; text-decoration:underline;">https://validator.w3.org/</a>
+      </p>
+      <hr style="border:none; border-top:2px solid #555; margin:30px 0; border-radius:2px;">
+      <h2>Ejemplo 3: Puede haber sections dentro de article</h2>
+      <p>
+        Cada artículo puede dividir su contenido en secciones internas. Por ejemplo, una noticia puede tener una sección de resumen, otra de desarrollo y otra de comentarios. Esto ayuda a organizar mejor la información y mantener la semántica correcta.
+      </p>
+      <div class="code-container">
+        <button class="copy-btn" onclick="copyCode('code5', this)">Copiar</button>
+        <div class="code-wrapper">
+          <pre id="code5">
+        <span class="tag">&lt;!DOCTYPE html&gt;</span>
+        <span class="tag">&lt;html</span> <span class="attr">lang</span>=<span class="value">"es"</span><span class="tag">&gt;</span>
+        <span class="tag">&lt;head&gt;</span>
+        <span class="tag">&lt;meta</span> <span class="attr">charset</span>=<span class="value">"UTF-8"</span><span class="tag">&gt;</span>
+        <span class="tag">&lt;title&gt;</span>Ejemplo 4 - Sections dentro de Article<span class="tag">&lt;/title&gt;</span>
+        <span class="tag">&lt;/head&gt;</span>
+        <span class="tag">&lt;body&gt;</span>
+        <span class="tag" style="color: #FF8C00">&lt;main&gt;</span>
+          <span class="tag" style="color: #9d00ff">&lt;article&gt;</span>
+            <span class="tag">&lt;h2&gt;</span>Noticia: Lanzamiento de Tecnología<span class="tag">&lt;/h2&gt;</span>
+            <span class="tag" style="color:#00CED1">&lt;section&gt;</span>
+              <span class="tag">&lt;h3&gt;</span>Resumen<span class="tag">&lt;/h3&gt;</span>
+              <span class="tag">&lt;p&gt;</span>Se presenta la nueva línea de productos tecnológicos con innovaciones importantes...<span class="tag">&lt;/p&gt;</span>
+            <span class="tag" style="color:#00CED1">&lt;/section&gt;</span>
+            <span class="tag" style="color:#00CED1">&lt;section&gt;</span>
+              <span class="tag">&lt;h3&gt;</span>Detalles Técnicos<span class="tag">&lt;/h3&gt;</span>
+              <span class="tag">&lt;p&gt;</span>El producto incluye características como IA integrada, batería de larga duración y pantalla flexible...<span class="tag">&lt;/p&gt;</span>
+            <span class="tag" style="color:#00CED1">&lt;/section&gt;</span>
+            <span class="tag" style="color:#00CED1">&lt;section&gt;</span>
+              <span class="tag">&lt;h3&gt;</span>Comentarios de Usuarios<span class="tag">&lt;/h3&gt;</span>
+              <span class="tag">&lt;p&gt;</span>Los primeros usuarios destacan su facilidad de uso y rendimiento...<span class="tag">&lt;/p&gt;</span>
+            <span class="tag" style="color:#00CED1">&lt;/section&gt;</span>
+          <span class="tag" style="color: #9d00ff">&lt;/article&gt;</span>
+        <span class="tag" style="color: #FF8C00">&lt;/main&gt;</span>
+        <span class="tag">&lt;/body&gt;</span>
+        <span class="tag">&lt;/html&gt;</span>
+          </pre>
+        </div>
+      </div>
+      <div class="preview-body" style="display:flex; flex-direction:column; gap:12px; width:100%; min-height:300px; box-sizing:border-box;">
+        <div style="border:1px solid #888; border-radius:6px; padding:10px; background:rgba(255,140,0,0.5); color:white;">
+          &lt;main&gt;
+          <div style="border:1px dashed #aaa; border-radius:6px; padding:8px; background:#9d00ff; margin-bottom:6px;">
+            &lt;article&gt; Noticia: Lanzamiento de Tecnología
+            <div style="border:1px solid #666; border-radius:6px; padding:6px; background:#00CED1; margin-top:4px;">
+              &lt;section&gt; Resumen
+            </div>
+            <div style="border:1px solid #666; border-radius:6px; padding:6px; background:#00CED1; margin-top:4px;">
+              &lt;section&gt; Detalles Técnicos
+            </div>
+            <div style="border:1px solid #666; border-radius:6px; padding:6px; background:#00CED1; margin-top:4px;">
+              &lt;section&gt; Comentarios de Usuarios
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr style="border:none; border-top:2px solid #555; margin:30px 0; border-radius:2px;">
+      <h2>Ejemplo 4: enunciado y cómo pensarlo:</h2>
+      <p style="margin-top:10px; background:rgba(255,255,255,0.05); padding:12px; border-radius:6px; color:#EAEAEA; line-height:1.6;">
+        <strong>Enunciado:</strong><br>
+        Diseña una plataforma digital integral que combine noticias internacionales, educación online y e-commerce de tecnología.
+      </p>
+      <p style="margin-top:10px; background:rgba(255,255,255,0.05); padding:12px; border-radius:6px; color:#EAEAEA; line-height:1.6;">
+        <strong>La página debe incluir:</strong><br>
+        Header con el logo, nombre del sitio y menú principal.
+      </p>
+      <p style="margin-top:10px; background:rgba(255,255,255,0.05); padding:12px; border-radius:6px; color:#EAEAEA; line-height:1.6;">
+        Noticias destacadas en portada, con secciones de “Política”, “Economía” y “Deportes”, y cada noticia con título, subtítulo, imagen, cuerpo y autor.
+      </p>
+      <p style="margin-top:10px; background:rgba(255,255,255,0.05); padding:12px; border-radius:6px; color:#EAEAEA; line-height:1.6;">
+        Bloque de opinión y editorial al final de la sección de noticias.
+      </p>
+      <p style="margin-top:10px; background:rgba(255,255,255,0.05); padding:12px; border-radius:6px; color:#EAEAEA; line-height:1.6;">
+        Página educativa de cursos profesionales, con categorías (Programación, Diseño, Marketing). Cada curso debe tener descripción, objetivos, listado de clases, profesor, y cada clase con video, material descargable y comentarios de alumnos.
+      </p>
+      <p style="margin-top:10px; background:rgba(255,255,255,0.05); padding:12px; border-radius:6px; color:#EAEAEA; line-height:1.6;">
+        Portal de e-commerce que muestre productos destacados, ofertas y colecciones. Cada producto tiene nombre, precio, descripción, imagen y reseñas. Además, debe haber una sección de noticias sobre lanzamientos y un blog con guías y tutoriales.
+      </p>
+      <p style="margin-top:10px; background:rgba(255,255,255,0.05); padding:12px; border-radius:6px; color:#EAEAEA; line-height:1.6;">
+        Barra lateral para cada sección, mostrando artículos relacionados, publicidad, recomendaciones, filtros de productos o cursos relacionados.
+      </p>
+      <p style="margin-top:10px; background:rgba(255,255,255,0.05); padding:12px; border-radius:6px; color:#EAEAEA; line-height:1.6;">
+        Footer con contacto, redes sociales, métodos de pago, derechos y políticas del sitio.
+      </p>
+      <div class="preview-body" style="display:flex; flex-direction:column; gap:12px; width:100%; min-height:400px; box-sizing:border-box;">
+        <div style="display:flex; gap:12px; width:100%; flex-wrap: wrap;">
+          <div style="flex:1 1 300px; border:1px solid #888; border-radius:6px; padding:10px; background:#008080; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; color:white;">
+            &lt;header&gt;
+            <div style="border:1px dashed #aaa; border-radius:6px; padding:6px; background:rgba(0,128,128,0.3); width:100%; text-align:center; color:white;">
+              &lt;h1&gt;Plataforma Digital Integral&lt;/h1&gt;
+            </div>
+          </div>
+          <div style="flex:1 1 300px; border:1px solid #888; border-radius:6px; padding:10px; background:rgba(50,205,50,0.5); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; color:white;">
+            &lt;nav&gt;
+            <div style="display:flex; gap:6px; flex-wrap:wrap; justify-content:center;">
+              <div style="border:1px dashed #aaa; border-radius:6px; padding:6px; background:rgba(50,205,50,0.3);">&lt;a href="#"&gt;Noticias&lt;/a&gt;</div>
+              <div style="border:1px dashed #aaa; border-radius:6px; padding:6px; background:rgba(50,205,50,0.3);">&lt;a href="#"&gt;Educación&lt;/a&gt;</div>
+              <div style="border:1px dashed #aaa; border-radius:6px; padding:6px; background:rgba(50,205,50,0.3);">&lt;a href="#"&gt;E-commerce&lt;/a&gt;</div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex; gap:12px; width:100%; flex:1; flex-wrap:wrap;">
+          <div style="flex:3 1 500px; border:1px solid #888; border-radius:6px; padding:10px; background:rgba(255,140,0,0.5); display:flex; flex-direction:column; gap:8px; color:white;">
+            &lt;main&gt;
+            <div style="border:1px dashed #aaa; border-radius:6px; padding:8px; display:flex; flex-direction:column; gap:8px; background:#00B496; color:white;">
+              &lt;section&gt; Noticias Destacadas
+              <div style="border:1px solid #666; border-radius:6px; padding:6px; background:#9d00ff;">&lt;article&gt; Política</div>
+              <div style="border:1px solid #666; border-radius:6px; padding:6px; background:#9d00ff;">&lt;article&gt; Economía</div>
+              <div style="border:1px solid #666; border-radius:6px; padding:6px; background:#9d00ff;">&lt;article&gt; Deportes</div>
+            </div>
+            <div style="border:1px dashed #aaa; border-radius:6px; padding:8px; margin-top:6px; background:#FFA500; color:white;">
+              &lt;section&gt; Cursos Profesionales
+              <div style="border:1px solid #666; border-radius:6px; padding:6px; background:#FF69B4;">&lt;article&gt; Programación</div>
+              <div style="border:1px solid #666; border-radius:6px; padding:6px; background:#FF69B4;">&lt;article&gt; Diseño</div>
+              <div style="border:1px solid #666; border-radius:6px; padding:6px; background:#FF69B4;">&lt;article&gt; Marketing</div>
+            </div>
+            <div style="border:1px dashed #aaa; border-radius:6px; padding:8px; margin-top:6px; background:#00CED1; color:white;">
+              &lt;section&gt; E-commerce
+              <div style="border:1px solid #666; border-radius:6px; padding:6px; background:#20B2AA;">&lt;article&gt; Productos Destacados</div>
+              <div style="border:1px solid #666; border-radius:6px; padding:6px; background:#20B2AA;">&lt;article&gt; Ofertas</div>
+              <div style="border:1px solid #666; border-radius:6px; padding:6px; background:#20B2AA;">&lt;article&gt; Colecciones</div>
+            </div>
+          </div>
+          <div style="flex:1 1 200px; border:1px solid #888; border-radius:6px; padding:10px; background:rgba(255,215,0,0.5); display:flex; flex-direction:column; align-items:center; justify-content:center; color:white;">
+            &lt;aside&gt; Barra Lateral
+            <div style="border:1px dashed #aaa; border-radius:6px; padding:6px; background:rgba(255,215,0,0.3); width:100%; text-align:center; color:white;">
+              Artículos Relacionados / Publicidad / Filtros
+            </div>
+          </div>
+        </div>
+        <div style="width:100%; margin-top:6px;">
+          <div style="border:1px solid #888; border-radius:6px; padding:10px; background:rgba(220,20,60,0.5); min-height:50px; display:flex; align-items:center; justify-content:center; color:white;">
+            &lt;footer&gt; Contacto / Redes / Métodos de Pago / Derechos
+          </div>
+        </div>
+      </div>
+    </div>
+  </details>
+  <details class="card">
+    <summary>
+      <svg class="icon" viewBox="0 0 24 24">
+        <path d="M4 4h16v16H4z" />
+      </svg>
+      Elementos de Texto en HTML
+    </summary>
+    <div class="card-content">
+      <h2>Títulos</h2>
+      <p><strong>&lt;h1&gt;:</strong> Un solo título principal por página. Ejemplo: nombre de la web o título del artículo.</p>
+      <p><strong>&lt;h2&gt;:</strong> Subtítulos dentro del tema principal.</p>
+      <p><strong>&lt;h3&gt;–&lt;h6&gt;:</strong> Subniveles según necesidad. Nunca uses &lt;h3&gt; si no hay un &lt;h2&gt; antes.</p>
+      <div class="code-container">
+        <button class="copy-btn" onclick="copyCode('code2', this)">Copiar</button>
+        <div class="code-wrapper">
+          <pre id="code2">
+  <span class="tag">&lt;h1&gt;</span>Nombre de la Web<span class="tag">&lt;/h1&gt;</span>
+  <span class="tag">&lt;h2&gt;</span>Subtítulo de Sección<span class="tag">&lt;/h2&gt;</span>
+  <span class="tag">&lt;h3&gt;</span>Subnivel de Contenido<span class="tag">&lt;/h3&gt;</span>
+          </pre>
+        </div>
+      </div>
+      <div class="preview-container">
+        <div class="tab-bar">
+          <div class="tab active">
+            <div class="tab-circle"></div>
+            <div class="tab-circle"></div>
+            <div class="tab-circle"></div>
+            Ejemplo de Títulos
+          </div>
+        </div>
+        <div class="preview-body" style="display:flex; flex-direction:column; gap:12px; width:100%; box-sizing:border-box;">
+          <h1 style="color:#EAEAEA; margin:0;">Nombre de la Web</h1>
+          <h2 style="color:#CCCCCC; margin:0;">Subtítulo de Sección</h2>
+          <h3 style="color:#CCCCCC; margin:0;">Subnivel de Contenido</h3>
+        </div>
+      </div>
+
+      <h2>Texto</h2>
+      <p><strong>&lt;p&gt;:</strong> Párrafos de contenido normal.</p>
+      <p><strong>&lt;strong&gt;:</strong> Resaltar lo realmente importante en el sentido semántico (no solo visual).</p>
+      <p><strong>&lt;em&gt;:</strong> Marcar énfasis, tono diferente o palabra destacada.</p>
+      <div class="code-container">
+        <button class="copy-btn" onclick="copyCode('code3', this)">Copiar</button>
+        <div class="code-wrapper">
+          <pre id="code3">
+  <span class="tag">&lt;p&gt;</span>Este es un párrafo normal.<span class="tag">&lt;/p&gt;</span>
+  <span class="tag">&lt;p&gt;</span>Este texto es <span class="tag">&lt;strong&gt;</span>muy importante<span class="tag">&lt;/strong&gt;</span> y este tiene <span class="tag">&lt;em&gt;</span>énfasis<span class="tag">&lt;/em&gt;</span>.<span class="tag">&lt;/p&gt;</span>
+          </pre>
+        </div>
+      </div>
+      <div class="preview-container">
+        <div class="tab-bar">
+          <div class="tab active">
+            <div class="tab-circle"></div>
+            <div class="tab-circle"></div>
+            <div class="tab-circle"></div>
+            Ejemplo de Texto
+          </div>
+        </div>
+        <div class="preview-body" style="display:flex; flex-direction:column; gap:12px; width:100%; box-sizing:border-box;">
+          <p style="color:#CCCCCC; margin:0;">Este es un párrafo normal.</p>
+          <p style="color:#CCCCCC; margin:0;">Este texto es <strong>muy importante</strong> y este tiene <em>énfasis</em>.</p>
+        </div>
+      </div>
+
+      <h2>Texto Avanzado</h2>
+      <p><strong>&lt;mark&gt;:</strong> Señalar algo a resaltar como “subrayado fluorescente”.</p>
+      <p><strong>&lt;abbr&gt;:</strong> Cuando uses abreviaturas o siglas. Ejemplo: <abbr title="Cascading Style Sheets">CSS</abbr>.</p>
+      <p><strong>&lt;code&gt;:</strong> Código en línea dentro de un párrafo.</p>
+      <p><strong>&lt;pre&gt;:</strong> Bloque de texto que debe conservar saltos de línea y espacios (código, ASCII art).</p>
+      <div class="code-container">
+        <button class="copy-btn" onclick="copyCode('code4', this)">Copiar</button>
+        <div class="code-wrapper">
+          <pre id="code4">
+  <span class="tag">&lt;p&gt;</span>Resalta <span class="tag">&lt;mark&gt;</span>texto importante<span class="tag">&lt;/mark&gt;</span> en un párrafo.<span class="tag">&lt;/p&gt;</span>
+  <span class="tag">&lt;p&gt;</span>Usa <span class="tag">&lt;abbr</span> <span class="attr">title</span>=<span class="value">"Cascading Style Sheets"</span><span class="tag">&gt;</span>CSS<span class="tag">&lt;/abbr&gt;</span> para estilos.<span class="tag">&lt;/p&gt;</span>
+  <span class="tag">&lt;p&gt;</span>Ejemplo de código: <span class="tag">&lt;code&gt;</span>let x = 10;<span class="tag">&lt;/code&gt;</span>.<span class="tag">&lt;/p&gt;</span>
+  <span class="tag">&lt;pre&gt;</span>
+  function ejemplo() {
+    console.log("Hola");
+  }
+  <span class="tag">&lt;/pre&gt;</span>
+          </pre>
+        </div>
+      </div>
+      <div class="preview-container">
+        <div class="tab-bar">
+          <div class="tab active">
+            <div class="tab-circle"></div>
+            <div class="tab-circle"></div>
+            <div class="tab-circle"></div>
+            Ejemplo de Texto Avanzado
+          </div>
+        </div>
+        <div class="preview-body" style="display:flex; flex-direction:column; gap:12px; width:100%; box-sizing:border-box;">
+          <p style="color:#CCCCCC; margin:0;">Resalta <mark style="background-color:#FFFF00; color:#000000;">texto importante</mark> en un párrafo.</p>
+          <p style="color:#CCCCCC; margin:0;">Usa <abbr title="Cascading Style Sheets" style="text-decoration:underline dotted;">CSS</abbr> para estilos.</p>
+          <p style="color:#CCCCCC; margin:0;">Ejemplo de código: <code style="font-family:'Fira Code', monospace; background:#1F1F2B; padding:2px 4px; border-radius:4px;">let x = 10;</code>.</p>
+          <pre style="font-family:'Fira Code', monospace; color:#D4D4D4; background:#1F1F2B; padding:10px; border-radius:4px; margin:0;">
+  function ejemplo() {
+    console.log("Hola");
+  }
+          </pre>
+        </div>
+      </div>
+
+      <h2>Citas</h2>
+      <p><strong>&lt;blockquote&gt;:</strong> Citas largas de otra fuente, en bloque.</p>
+      <p><strong>&lt;q&gt;:</strong> Cita corta dentro de una frase.</p>
+      <div class="code-container">
+        <button class="copy-btn" onclick="copyCode('code5', this)">Copiar</button>
+        <div class="code-wrapper">
+          <pre id="code5">
+  <span class="tag">&lt;blockquote&gt;</span>
+    Esta es una cita larga de una fuente externa.
+  <span class="tag">&lt;/blockquote&gt;</span>
+  <span class="tag">&lt;p&gt;</span>Ella dijo <span class="tag">&lt;q&gt;</span>Esto es una cita corta<span class="tag">&lt;/q&gt;</span> dentro de un párrafo.<span class="tag">&lt;/p&gt;</span>
+          </pre>
+        </div>
+      </div>
+      <div class="preview-container">
+        <div class="tab-bar">
+          <div class="tab active">
+            <div class="tab-circle"></div>
+            <div class="tab-circle"></div>
+            <div class="tab-circle"></div>
+            Ejemplo de Citas
+          </div>
+        </div>
+        <div class="preview-body" style="display:flex; flex-direction:column; gap:12px; width:100%; box-sizing:border-box;">
+          <blockquote style="color:#CCCCCC; margin:0; padding-left:15px; border-left:4px solid #4FC3F7;">
+            Esta es una cita larga de una fuente externa.
+          </blockquote>
+          <p style="color:#CCCCCC; margin:0;">Ella dijo <q style="quotes:'“' '”';">Esto es una cita corta</q> dentro de un párrafo.</p>
+        </div>
+      </div>
+
+      <h2>Misceláneo</h2>
+      <p><strong>&lt;br&gt;:</strong> Solo para saltos de línea donde no corresponde abrir un nuevo párrafo (direcciones, poesía, etc.).</p>
+      <div class="code-container">
+        <button class="copy-btn" onclick="copyCode('code6', this)">Copiar</button>
+        <div class="code-wrapper">
+          <pre id="code6">
+  <span class="tag">&lt;p&gt;</span>
+    Dirección:<span class="tag">&lt;br&gt;</span>
+    Calle Principal 123<span class="tag">&lt;br&gt;</span>
+    Ciudad, País
+  <span class="tag">&lt;/p&gt;</span>
+          </pre>
+        </div>
+      </div>
+      <div class="preview-container">
+        <div class="tab-bar">
+          <div class="tab active">
+            <div class="tab-circle"></div>
+            <div class="tab-circle"></div>
+            <div class="tab-circle"></div>
+            Ejemplo de Misceláneo
+          </div>
+        </div>
+        <div class="preview-body" style="display:flex; flex-direction:column; gap:12px; width:100%; box-sizing:border-box;">
+          <p style="color:#CCCCCC; margin:0;">
+            Dirección:<br>
+            Calle Principal 123<br>
+            Ciudad, País
+          </p>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Elemento</th>
+            <th>Descripción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>&lt;h1&gt;</td>
+            <td>Título principal, solo uno por página</td>
+          </tr>
+          <tr>
+            <td>&lt;h2&gt;</td>
+            <td>Subtítulos dentro del tema principal</td>
+          </tr>
+          <tr>
+            <td>&lt;h3&gt;–&lt;h6&gt;</td>
+            <td>Subniveles, respetar jerarquía</td>
+          </tr>
+          <tr>
+            <td>&lt;p&gt;</td>
+            <td>Párrafos de contenido normal</td>
+          </tr>
+          <tr>
+            <td>&lt;strong&gt;</td>
+            <td>Resaltar importancia semántica</td>
+          </tr>
+          <tr>
+            <td>&lt;em&gt;</td>
+            <td>Marcar énfasis o tono diferente</td>
+          </tr>
+          <tr>
+            <td>&lt;mark&gt;</td>
+            <td>Resaltar como “subrayado fluorescente”</td>
+          </tr>
+          <tr>
+            <td>&lt;abbr&gt;</td>
+            <td>Abreviaturas o siglas con descripción</td>
+          </tr>
+          <tr>
+            <td>&lt;code&gt;</td>
+            <td>Código en línea dentro de un párrafo</td>
+          </tr>
+          <tr>
+            <td>&lt;pre&gt;</td>
+            <td>Bloque de texto con formato preservado</td>
+          </tr>
+          <tr>
+            <td>&lt;blockquote&gt;</td>
+            <td>Citas largas en bloque</td>
+          </tr>
+          <tr>
+            <td>&lt;q&gt;</td>
+            <td>Citas cortas dentro de una frase</td>
+          </tr>
+          <tr>
+            <td>&lt;br&gt;</td>
+            <td>Salto de línea para casos específicos</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </details>
+  <details class="card">
+      <summary>
+        <svg class="icon" viewBox="0 0 24 24">
+          <path d="M4 4h16v16H4z" />
+        </svg>
+        Enlaces en HTML
+      </summary>
+      <div class="card-content">
+        <h2>Enlaces</h2>
+        <p>Los enlaces en HTML se crean con la etiqueta <strong>&lt;a&gt;</strong>, permitiendo navegar a otras páginas, recursos o archivos HTML.</p>
+        <div class="code-container">
+          <button class="copy-btn" onclick="copyCode('code7', this)">Copiar</button>
+          <div class="code-wrapper">
+            <pre id="code7">
+    <span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="value">"https://www.google.com"</span> <span class="attr">target</span>=<span class="value">"_blank"</span> <span class="attr">rel</span>=<span class="value">"noopener noreferrer"</span><span class="tag">&gt;</span>Ir a Google<span class="tag">&lt;/a&gt;</span>
+    <span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="value">"#contacto"</span><span class="tag">&gt;</span>Ir a Contacto<span class="tag">&lt;/a&gt;</span>
+    <span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="value">"about.html"</span><span class="tag">&gt;</span>Ir a Acerca<span class="tag">&lt;/a&gt;</span>
+    <span class="tag">&lt;h2</span> <span class="attr">id</span>=<span class="value">"contacto"</span><span class="tag">&gt;</span>Sección de Contacto<span class="tag">&lt;/h2&gt;</span>
+            </pre>
+          </div>
+        </div>
+        <div class="preview-container">
+          <div class="tab-bar">
+            <div class="tab active">
+              <div class="tab-circle"></div>
+              <div class="tab-circle"></div>
+              <div class="tab-circle"></div>
+              Ejemplo de Enlaces
+            </div>
+          </div>
+          <div class="preview-body" style="display:flex; flex-direction:column; gap:12px; width:100%; box-sizing:border-box;">
+            <a href="https://www.google.com" target="_blank" rel="noopener noreferrer" style="color:#4FC3F7; text-decoration:underline;">Ir a Google</a>
+            <a href="#contacto" style="color:#4FC3F7; text-decoration:underline;">Ir a Contacto</a>
+            <a href="about.html" style="color:#4FC3F7; text-decoration:underline;">Ir a Acerca</a>
+            <h2 id="contacto" style="color:#CCCCCC; margin:0;">Sección de Contacto</h2>
+          </div>
+        </div>
+        <h2>Explicación de Atributos</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Atributo</th>
+              <th>Descripción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>href</code></td>
+              <td>Dirección del enlace (URL externa, #id para enlaces internos, o ruta a otro archivo HTML como "about.html").</td>
+            </tr>
+            <tr>
+              <td><code>target="_blank"</code></td>
+              <td>Abre el enlace en una nueva pestaña.</td>
+            </tr>
+            <tr>
+              <td><code>rel="noopener noreferrer"</code></td>
+              <td>Obligatorio con <code>target="_blank"</code> por seguridad (evita acceso al origen desde la nueva ventana) y rendimiento.</td>
+            </tr>
+            <tr>
+              <td><code>#id</code></td>
+              <td>Permite navegar a un elemento específico de la misma página que tenga ese id.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  </details>
+</div>
+
+<script>
+function copyCode(id, btn) {
+  const code = document.getElementById(id).innerText;
+  navigator.clipboard.writeText(code).then(() => {
+    btn.classList.add("copied");
+    btn.textContent = "¡Copiado!";
+    setTimeout(() => {
+      btn.classList.remove("copied");
+      btn.textContent = "Copiar";
+    }, 1500);
+  });
+}
+</script>
+
+</body>
+</html>
